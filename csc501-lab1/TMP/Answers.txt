@@ -1,0 +1,130 @@
+
+Name:Pranjali Chumbhale
+Unity ID: pchumbh
+Student ID:200086297.
+
+1. Assuming the XINU text begins at address 0x0, draw a rough diagram of XINU's memory layout with addresses derived from your experimental measurements. Include the information you uncovered from running your version of printsegaddress() and printprocstks()
+______________________________________0x00000000
+______________________________________
+______________________________________
+______________________________________
+________________text__________________
+______________________________________
+______________________________________
+______________________________________
+______________________________________
+_________________text_end_____________0x000086e6
+______________________________________
+______________________________________
+______________________________________
+_________________data start___________
+______________________________________
+______________________________________
+_______________data___________________
+______________________________________
+______________________________________
+__________________data end____________ 0x0000abe0
+______________________________________
+______________________________________
+___________________bss start__________
+______________________________________
+______________________________________
+_____________________bss______________
+______________________________________
+______________________________________
+_________________bss_end______________ 0x00010838
+______________________________________
+______________________________________
+
+
+printsegaddress() output:
+Current: etext[0x000086e6]=0x00000000, edata[0x0000abe0]=0x00000001, ebss[0x00010838]=0x00000036
+Preceding: etext[0x000086e5]=0xffffffc3, edata[0x0000abdf]=0x00000000, ebss[0x00010837]=0x00000000
+After: etext[0x000086e7]=0x00000000, edata[0x0000abe1]=0x00000000, ebss[0x00010839]=0x0000000e
+
+
+printprocstks(1) output:
+Process [main]
+	 pid: 49
+	 priority: 20
+	 base: 0x00ffeff8
+	 limit: 0x00ffdffc
+	 len: 4096
+	 pointer: 0x00ffefa0
+
+
+
+2. What is the difference in stack top address before and after calling printtos() ? Draw a diagram to illustrate what are the contents of the items pushed into the stack between these two time points.
+Output:
+Before [0x00ffefb8]: 0x00ffefc0
+After [0x00ffefac]: 0x00ffef9c
+	 	element[0x00ffef9c]: 0x00000202 
+	 	element[0x00ffefa0]: 0x00ffefb6 
+	 	element[0x00ffefa4]: 0x00000000 
+	 	element[0x00ffefa8]: 0x00000000 
+The difference is of 24 address locations.
+
+The contents should have been pushed as follows:
+
+___________________________________
+___________________________________
+___________________________________
+___esp_caller function_____________   esp_caller function stack
+____return addresss________________
+______ebp_caller function__________
+______local var *sp________________
+______local var *fp________________
+_______local var i_________________
+_______local var k_________________
+_________local var g_______________    esp_called function stack
+___________________________________
+___________________________________ 
+
+
+3. Which byte order is adopted in the host machine that we are using ? How did you find out ?
+	The host machine is using Little Endian.
+	I found this out by checking the conf.h file.
+		
+
+4. Briefly describe the mov, push, pusha, pop, and popa instructions in the x86.
+In x86 architecture GAS syntax is followed for the assembly instructions.
+
+mov:
+	Syntax: 	mov src,dest
+	mov is an instruction used to copy contents from one location to other.
+	The source and destination could either be register  or memory locations or constants.
+	mov is postfixed to indicate the datatype of the value being moved from source to destination.
+
+	eg. movl %eax, %ebx
+	This instruction moves contents from eax register to ebx register.
+
+Push:
+	Syntax: push src 
+	This instruction pushes the src on the stack. Basically it increases the stack by 4 memory locations and then stores the src in   that location.
+Pusha:
+	Syntax: pusha
+	Pushes the value of all the registers on to the stack.
+	The registers and the order is are : AX, CX, DX, BX, SP, BP, SI, DI.
+	The stack pointer value pushed is the value before the pusha operation is performed.
+
+Pop:
+	Syntax: pop dest
+	Pop operation stores the value at the top most location of stack into the destination register. Then it decrements the esp by 4.
+
+Popa:
+	Syntax: popa
+	Pops the values from the top most location of the stack and stores into the general purpose registers in the following order: DI, SI, BP, SP, BX, DX, CX, AX
+
+
+5. In a stack frame, local variables are stored below the top of the stack. In task 3, does your result show all the local variables declared in your printtos function? If not, can you explain that? (hint: try to disable the compiler optimization by specifing -O0 in your Makefile)
+
+No.My result does not show all the variables.
+That may be because the compiler is optimizing the memory used by the code . 
+
+
+
+
+References:
+
+
+

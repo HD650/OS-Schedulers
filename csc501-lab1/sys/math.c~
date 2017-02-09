@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+#define RAND_MAX 32768
+
+double pow(double x, int y)
+{
+if(y==0)
+{
+	return(1);
+}
+else
+{	double temp=x;
+	int i;
+	if(y>0)//if y is positive
+	for (i=1; i<y;i++)
+	{
+		temp=temp*x;
+	}
+	else
+	{ temp=1;
+	for (i=0; i>y;i--)
+	{
+		temp=temp/x;
+	}
+	}
+	//printf("POwer Value:%f\n",temp);
+	return (temp);
+}
+
+}
+
+double log(double x)
+{
+	double temp=0;
+	int i;	
+	for (i=1;i<=20;i++)
+	{
+		//printf("i is : %d\n",i);
+		//printf("%f\n",power(-1,i+1));
+		//printf("%f\n",(power(-1,i+1)*((power(x-1,i))/i)));
+		temp=temp+(pow(-1,i+1)*((pow(x-1,i))/i));
+		//printf("temp is :%f\n",temp);
+	}
+	//printf("Logarithm:%f\n",temp);
+	return (temp);
+
+}
+double expdev(double lambda) {
+    double dummy;
+    time_t t;
+
+    do
+        {
+       
+        dummy= (double) (rand() / RAND_MAX);
+        //printf("Random Value:%f\n",dummy);}
+       //	dummy= 0.6/ RAND_MAX;
+    while (dummy == 0.0);
+    return (-(log(dummy) / lambda));
+}
