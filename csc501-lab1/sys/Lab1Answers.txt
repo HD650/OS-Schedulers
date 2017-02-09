@@ -1,0 +1,31 @@
+
+
+Name: Pranjali Chumbhale
+StudentID: 200086297
+
+What are the advantages and disadvantages of each of the two scheduling policies? Also, give the advantages and disadvantages of the round robin scheduling policy originally implemented in Xinu.
+Linux like:
+Advantage:
+1. No starvation.
+2. Processes which wait for I/O or enter into waitingg state 
+Disadvantage:
+1. Complexity
+2.Processes cannot start if created in between an epoch even if it has very high priority.
+3. If a process has very low priority, then it goodness can not increase a lot resulting in starvation.
+
+
+Exponential:
+
+Advantages:
+1.No starvation.
+Disadvantages:
+1.High priority processes get very less CPU cycles in comparison.
+
+Xinu:
+Advantage: Equal priority processes get equal CPU time.
+Disadvantage:It is priority based scheduling. Starvation of lower priority processes.
+
+
+Describe the way each of the schedulers affects the NULL process.
+Exponential: When there are no processes in the ready queue (i.e.no runnable processes only then the null process gets scheduled.
+Linux Like: As the linux like policy uses goodness as a parameter for scheduling, then there is a possibility that null process can get scheduled if, any of  the runnable process has non zero quantum and zero goodness for current epoch. 

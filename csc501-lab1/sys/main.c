@@ -22,39 +22,6 @@ int main() {
 
 	srand(1234);
 
-	
-
-int k=0; 
-int i10,i20,i30,i40;
-int temp;
-i10=0;
-i20=0;
-i30=0;
-i40=0;
-while(k<10)
-{
-temp=(int)expdev(0.1);
-kprintf("Exponential value: %d\n",temp);
-if(0<=temp &&temp<10)
-{
-i10++;
-}
-if(10<=temp &&temp<20)
-{
-i20++;
-}
-if(20<=temp)
-{
-i30++;
-}
-
-k++;
-}
-kprintf("\t%d\t%d\t%d\t%d\n",i10,i20,i30,i40);
-
-
-
-
 	kprintf("Please Input:\n");
 	while ((i = read(CONSOLE, buf, sizeof(buf))) < 1)
 		;
